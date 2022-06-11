@@ -8,6 +8,6 @@ RUN python -m venv env
 
 CMD ["source", "env/bin/activate"]
 
-RUN pip install -r requirements.txt
+CMD ["pip", "install", "-r", "requirements.txt"]
 
 ENTRYPOINT flask run
