@@ -1,13 +1,14 @@
-FROM python:slim-buster
+FROM python:slim-buster as compiler
 
 WORKDIR /app
 
-COPY . /app
+ENV VIRTUAL_ENV=env
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN python -m venv env
+# Install dependencies:
+COPY . .
+RUN pip install -Ur requirements.txt
 
-CMD ["source", "env/bin/activate"]
-
-CMD ["pip", "install", "-r", "requirements.txt"]
-
-ENTRYPOINT flask run
+# Run the application:
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8080"]

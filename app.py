@@ -5,6 +5,7 @@ import tensorflow as tf
 from flask import Flask, request
 from tensorflow import keras
 from werkzeug.utils import secure_filename
+
 from model.repository import list_item
 
 model = keras.models.load_model('model/model.h5')
@@ -43,6 +44,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route("/")
+def hello_world():
+    return "<p>ps167</p>"
 
 
 @app.route('/predict', methods=['GET'])
