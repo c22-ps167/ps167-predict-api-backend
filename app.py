@@ -29,7 +29,10 @@ def do_predict(path):
         if score[index] == 1:
             result = list_item[index]
 
-    return result
+    result_dict = {
+        "data": result
+    }
+    return result_dict
 
 
 # FLASK
@@ -51,7 +54,7 @@ def hello_world():
     return "<p>ps167</p>"
 
 
-@app.route('/predict', methods=['GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
         return "<p>No file part!</p>"
